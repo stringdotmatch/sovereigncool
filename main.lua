@@ -24,39 +24,38 @@ local Tabs = {
 
 local Options = Fluent.Options
 
+local Items = workspace:WaitForChild("RuntimeItems")
+local Highlight = Instance.new("Highlight")
+
 function createESP(obj,color)
-    if not obj:IsA("Model") or not obj.PrimaryPart then return end
-    local esp = Instance.new("Highlight")
-    esp.FillColor = color
-    esp.OutlineColor = color
-    esp.Parent = obj
+	if not obj then return warn("No objects specified.") end
+	local esp = Instance.new("Highlight",obj)
+	esp.FillColor = color
+	esp.OutlineColor = color
 end
 
 function clearESP(parent)
-    for _,v in pairs(parent:GetDescendants()) do
-        if v:IsA("Model") then
-            if v:IsA("Highlight") then
-                v:Destroy()
-            end
-        end
-    end
+	for _,v in ipairs(parent:GetDescendants()) do
+		if v:IsA("Highlight") then
+			v:Destroy()
+		end
+	end
 end
 
 function refreshESP()
-    local RuntimeItems = workspace:FindFirstChild("RuntimeItems")
-    clearESP(RuntimeItems)
-    for _, item in pairs(RuntimeItems:GetDescendants()) do
-        if item:IsA("Model") then
-            createESP(item,Color3.fromRGB(255,0,255))
-        end
-    end
+	clearESP(Items)
+	for _, item in ipairs(Items:GetDescendants()) do
+		if item:IsA("Model") then
+			createESP(item,Color3.fromRGB(255,0,255))
+		end
+	end
 end
 
 function UpdateESP()
-    while true do
-        refreshESP()
-        wait()
-    end
+	while true do
+		refreshESP()
+		wait(2)
+	end
 end
 
 do
