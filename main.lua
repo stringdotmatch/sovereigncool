@@ -61,9 +61,49 @@ end
 do
     Fluent:Notify({
         Title = "[🧟] Sovereign Loaded.",
-        Content = "Sovereign has been loaded.",
-        SubContent = "Developer Test",
+        Content = "Dead rails script by @.spctrzz on dc:3",
+        SubContent = "@ DevTest 1.1.0",
         Duration = 5
+    })
+
+    Tabs.Main:AddButton({
+        Title = "Noclip",
+        Description = "Makes you go through walls. (creds to inf yield)",
+        Callback = function()
+            local player = game:GetService("Players").LocalPlayer
+            local character = player.Character
+            local root = character:WaitForChild("HumanoidRootPart")
+            local runservice = game:GetService("RunService")
+
+            local function NoclipLoop()
+                for _, child in pairs(character:GetDescendants()) do
+                    if child:IsA("BasePart") and child.CanCollide == true then
+                	child.CanCollide = false
+                    end
+                end
+            end
+
+            Noclipping = runservice.Stepped:Connect(NoclipLoop)
+        end
+    })
+
+    Tabs.Main:AddButton({
+        Title = "AntiVoid",
+        Description = "Anti void, if you fall into the void you'll get bounced back up. (creds to inf yield)",
+        Callback = function()
+            local player = game:GetService("Players").LocalPlayer
+            local character = player.Character
+            local root = character:WaitForChild("HumanoidRootPart")
+            local runservice = game:GetService("RunService")
+
+            local maxFallDistance = 26
+            local gameMaxFallDistance = workspace.FallenPartsDestroyHeight
+            local antiVoid = runservice.RenderStepped:Connect(function()
+	            if root and root.Position.Y <= gameMaxFallDistance + 25 then
+		            root.Velocity = root.Velocity + Vector3.new(0,300,0)
+	            end
+            end)
+        end
     })
 
     Tabs.Visual:AddButton({
