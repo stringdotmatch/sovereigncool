@@ -1,3 +1,4 @@
+# SCRIPT IS CURRENTLY UNAVAIBLE!
 # ❓ What is Sovereign?
 Sovereign is a Dead Rails Roblox script, has a ton of features such as:
 ## 👁 ESP (Currently Item and Train, mobs not included, yet.)
